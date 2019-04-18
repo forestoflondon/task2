@@ -17,6 +17,13 @@ class Search extends TestCase {
         thenIAmShownResultsFor("floccinaucinihilipilification");
     }
 
+    @Test
+    void searchWithNoResultsTest() throws Exception {
+        givenImOnTheHomePage();
+        whenISearchFor("friskydingo");
+        thenIAmShownNoResultsFor("friskydingo");
+    }
+
     private void givenImOnTheHomePage() throws Exception {
         site.on(HomePage.class).Visit();
     }
@@ -27,5 +34,9 @@ class Search extends TestCase {
 
     private void thenIAmShownResultsFor(String term) throws Exception {
         assert (site.on(SearchResults.class).isDisplayingResultsFor(term));
+    }
+
+    private void thenIAmShownNoResultsFor(String term) throws Exception {
+        assert (site.on(SearchResults.class).isDisplayingNoResultsFor(term));
     }
 }
